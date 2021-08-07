@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'pokeicons';
-  src:  url('../pokeicons.eot?7sc8zo');
-  src:  url('../pokeicons.eot?7sc8zo#iefix') format('embedded-opentype'),
-    url('../pokeicons.ttf?7sc8zo') format('truetype'),
-    url('../pokeicons.woff?7sc8zo') format('woff'),
-    url('../pokeicons.svg?7sc8zo#pokeicons') format('svg');
+  src:  url('../icons-font.eot?7sc8zo');
+  src:  url('../icons-font.eot?7sc8zo#iefix') format('embedded-opentype'),
+    url('../icons-font.ttf?7sc8zo') format('truetype'),
+    url('../icons-font.woff?7sc8zo') format('woff'),
+    url('../icons-font.svg?7sc8zo#icons-font') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;

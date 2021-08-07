@@ -1,5 +1,7 @@
 <template lang="pug">
-	div Hello Wordl! 
+	div 
+		h1 Hello Wordl! 
+		i.pokeicon-star
 </template>
 
 <script>
