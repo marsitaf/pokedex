@@ -1,6 +1,9 @@
 export default {
 	// Global page headers: https://go.nuxtjs.dev/config-head
 	ssr: true,
+	globals: {
+		id: "poke-app"
+	},
 	head: {
 		title: "pokedex",
 		htmlAttrs: {
@@ -18,7 +21,6 @@ export default {
 		link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
 	},
 
-	// Global CSS: https://go.nuxtjs.dev/config-css
 	css: [
 		"@/assets/styles/index.scss"
 	],
@@ -27,18 +29,16 @@ export default {
         scss: ["@/assets/styles/global/variables/index.scss"]
     },
 
-	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-	plugins: [],
+	plugins: [
+		"@/plugins/index.js"
+	],
 
-	// Auto import components: https://go.nuxtjs.dev/config-components
 	components: true,
 
-	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
 	buildModules: [
 		"@nuxtjs/style-resources"
 	],
 
-	// Modules: https://go.nuxtjs.dev/config-modules
 	modules: [
 		"@nuxtjs/axios"
 	],
@@ -52,7 +52,6 @@ export default {
 		}
 	},
 
-	// Build Configuration: https://go.nuxtjs.dev/config-build
 	build: {
 		babel: {
 			plugins: [
