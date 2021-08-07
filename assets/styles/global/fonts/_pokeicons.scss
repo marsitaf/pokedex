@@ -1,0 +1,39 @@
+@font-face {
+    font-family: 'pokeicons';
+    src:  url('~assets/fonts/pokeicons/icons-font.eot?7sc8zo');
+    src:  url('~assets/fonts/pokeicons/icons-font.eot?7sc8zo#iefix') format('embedded-opentype'),
+    url('~assets/fonts/pokeicons/icons-font.ttf?7sc8zo') format('truetype'),
+    url('~assets/fonts/pokeicons/icons-font.woff?7sc8zo') format('woff'),
+    url('~assets/fonts/pokeicons/icons-font.svg?7sc8zo#pokeicons') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: block; 
+}
+
+[class^="pokeicon-"], [class*=" pokeicon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'pokeicons' !important;
+    speak: never;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.pokeicon-close-rounded:before {
+    content: "\e900";
+}
+.pokeicon-list:before {
+    content: "\e901";
+}
+.pokeicon-search:before {
+    content: "\e902";
+}
+.pokeicon-star:before {
+    content: "\e903";
+}
