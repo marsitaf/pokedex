@@ -4,43 +4,36 @@
     box-sizing: border-box;
 }
 
-// * {   
-//     font-family: $ari-font-family-primary
-//     scrollbar-width: thin     
-//     scrollbar-color: $pc-dark
-//     &::-webkit-scrollbar
-//         width: 5px
-//         height: 5px
-//     &::-webkit-scrollbar-thumb
-//         background-color: $pc-dark
-//         border-radius: 10px
-//         transition: color .25s ease-in-out
-//         &:hover
-//             background-color: darken($pc-dark, 8%)
-//     &::-webkit-scrollbar-track
-//         box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1)
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: $poke-font-family-primary;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+}
 
-// ::selection
-//     background-color: $sc-regular !important
-//     color: #fff !important
+#app {
+    height: 100%;
+}
 
-// html 
-//     scroll-behavior: smooth
-    
-// body
-//     min-width: $ari-body-min-width
-//     color: $ari-body-color
-//     font-size: $ari-body-font-size
-//     font-weight: $ari-font-weight
-//     line-height: $ari-body-line-height
+a {
+    text-decoration: none;
+}
 
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+}
 
-// a
-//     font-weight: 500
-//     color: $pc-dark
-
-// p
-//     @include ari-typography-regular-styles($ari-r0-font-size: $ari-paragraph-font-size)
-
-// ul
-//     list-style: none
+.aplication-wrap {
+    display: grid;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    min-height: 100vh;
+    max-width: 100%;
+    position: relative;
+}

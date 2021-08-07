@@ -29,9 +29,7 @@ export default {
         scss: ["@/assets/styles/global/variables/index.scss"]
     },
 
-	plugins: [
-		"@/plugins/index.js"
-	],
+	plugins: [],
 
 	components: true,
 
