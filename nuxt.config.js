@@ -19,7 +19,13 @@ export default {
 	},
 
 	// Global CSS: https://go.nuxtjs.dev/config-css
-	css: [],
+	css: [
+		"@/assets/styles/index.scss"
+	],
+
+	styleResources: {
+        scss: ["@/assets/styles/global/variables/index.scss"]
+    },
 
 	// Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
 	plugins: [],
@@ -28,10 +34,14 @@ export default {
 	components: true,
 
 	// Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-	buildModules: [],
+	buildModules: [
+		"@nuxtjs/style-resources"
+	],
 
 	// Modules: https://go.nuxtjs.dev/config-modules
-	modules: ["@nuxtjs/axios"],
+	modules: [
+		"@nuxtjs/axios"
+	],
 	axios: {
 		proxy: true
 	},
