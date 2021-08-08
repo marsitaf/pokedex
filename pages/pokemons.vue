@@ -2,13 +2,17 @@
     section.pokemons-collection
         .poke-container
             poke-search.pokemons-collection__search(:term="searchTerm")
-            .pokemons-collection__list
+            .pokemons-collection__list(v-if="resultExist")
                 poke-card(
                     v-for="(pokemon, index) in pokemonsList"
                     :key="index"
                     :status="pokemon.status",
                     @select="showPokedexDetail(pokemon)"
                 ) {{ pokemon.name }}
+            poke-placeholder(v-if="!resultExist", @clicked="backHome")
+                template(#title) Uh-oh!
+                template(#message) You look lost on your journey!
+                template(#button) Go back home
         poke-footer
             poke-button(variant="primary", :active="true")
                 i.pokeicon-list 
@@ -36,9 +40,17 @@ export default {
         dialogVisible: false,
         searchTerm: null
     }),
+    computed: {
+        resultExist() {
+            return false;
+        },
+    },
     methods: {
         showPokedexDetail(item) {
             this.$refs.detailModal.open(item);
+        },
+        backHome() {
+            this.$router.push("/")
         }
     }
 }
@@ -47,6 +59,12 @@ export default {
 <style lang="scss">
     .pokemons-collection {
         padding-top: 35px;
+        .poke-container {
+            max-height: calc(100vh - 115px);
+            display: grid;
+            grid-template-rows: 50px 1fr;
+            row-gap: 40px;
+        }
     }
     .pokemons-collection__search,
     .pokemons-collection__list > div {
@@ -56,7 +74,7 @@ export default {
         margin: 0 auto;
     }
     .pokemons-collection__list {
-        padding-top: 40px;
+        overflow: auto;
         > div {
             margin-left: auto;
             margin-right: auto;
