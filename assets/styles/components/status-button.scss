@@ -1,0 +1,13 @@
+.status-button {
+    --dimension: 44px;
+    background-color: $gv-lighter;
+    i {
+        font-size: 25px;
+    }
+    &:not(.active) {
+        color: $gv-regular;
+    }
+    &.active {
+        color: $ac-yellow;
+    }
+}
