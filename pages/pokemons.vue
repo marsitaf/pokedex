@@ -1,17 +1,28 @@
 <template lang="pug">
     section
-        .pokemon-collection
-            poke-card(
-                v-for="(item, index) in pokemonsList"
-                :key="index"
-                :status="item.status"
-            ) {{ item.name }}
+        .poke-container
+            .pokemon-collection
+                poke-card(
+                    v-for="(item, index) in pokemonsList"
+                    :key="index"
+                    :status="item.status"
+                ) {{ item.name }}
+        poke-footer
+            poke-button(:active="true")
+                i.pokeicon-list 
+                | All
+            poke-button 
+                i.pokeicon-star
+                |Favorites
 </template>
 
 <script>
 import PokeCard from "@/components/PokeCard"
+import PokeFooter from "@/components/PokeFooter"
+import PokeButton from "@/components/PokeButton"
+
 export default {
-    components: { PokeCard },
+    components: { PokeCard, PokeFooter, PokeButton },
     data: () => ({
         test: null,
         pokemonsList: new Array(10).fill({ name: "Pikachu", status: true})

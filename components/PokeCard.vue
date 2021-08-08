@@ -6,6 +6,7 @@
 
 <script>
 export default {
+    name: "poke-card",
     props: {
         status: Boolean
     }
