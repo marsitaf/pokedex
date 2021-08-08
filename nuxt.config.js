@@ -26,7 +26,10 @@ export default {
 	],
 
 	styleResources: {
-        scss: ["@/assets/styles/global/variables/index.scss"]
+        scss: [ 
+			"@/assets/styles/global/variables/index.scss",
+			'@/assets/styles/layout/mixins/index.scss'
+		]
     },
 
 	plugins: [],

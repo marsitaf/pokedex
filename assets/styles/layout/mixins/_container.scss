@@ -1,0 +1,14 @@
+@mixin make-container-min-widths($breakpoints: $layout-breakpoints) {
+    @each $name, $value in $breakpoints {
+        @include media-breakpoint-up($name) {
+            min-width: $value;
+        }
+    }
+};
+// @mixin make-container-max-widths($breakpoints: $layout-breakpoints) {
+//     @each $name, $value in $breakpoints {
+//         @include media-breakpoint-down($name) {
+//             max-width: $value;
+//         }
+//     }
+// };
