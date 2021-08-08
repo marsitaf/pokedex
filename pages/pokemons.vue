@@ -1,7 +1,8 @@
 <template lang="pug">
-    section
+    section.pokemons-collection
         .poke-container
-            .pokemon-collection
+            poke-search.pokemons-collection__search(:term="searchTerm")
+            .pokemons-collection__list
                 poke-card(
                     v-for="(pokemon, index) in pokemonsList"
                     :key="index"
@@ -20,15 +21,8 @@
 </template>
 
 <script>
-import PokeCard from "@/components/PokeCard"
-import PokeFooter from "@/components/PokeFooter"
-import PokeButton from "@/components/PokeButton"
-import PokePokemonDetailModal from "@/components/PokePokemonDetailModal"
 
 export default {
-    components: { 
-        PokeCard, PokeFooter, PokeButton,  PokePokemonDetailModal 
-    },
     data: () => ({
         test: null,
         pokemonsList: new Array(10).fill({
@@ -39,7 +33,8 @@ export default {
             status: true,
             image: require("@/assets/images/squirtle.png")
         }),
-        dialogVisible: false
+        dialogVisible: false,
+        searchTerm: null
     }),
     methods: {
         showPokedexDetail(item) {
@@ -50,7 +45,18 @@ export default {
 </script>
 
 <style lang="scss">
-    .pokemon-collection {
+    .pokemons-collection {
+        padding-top: 35px;
+    }
+    .pokemons-collection__search,
+    .pokemons-collection__list > div {
+        max-width: 570px;
+    }
+    .pokemons-collection__search {
+        margin: 0 auto;
+    }
+    .pokemons-collection__list {
+        padding-top: 40px;
         > div {
             margin-left: auto;
             margin-right: auto;
