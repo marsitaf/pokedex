@@ -48,7 +48,7 @@ ul {
 */
 
 html {
-    font-family: $poke-font-family-sans;
+    font-family: 'Lato', sans-serif;
     line-height: 1.5; /* 2 */
 }
 
@@ -200,7 +200,7 @@ pre,
 code,
 kbd,
 samp {
-    font-family: theme('fontFamily.mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+    font-family: 'Lato', sans-serif;
 }
 
 /**

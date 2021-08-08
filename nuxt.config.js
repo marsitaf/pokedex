@@ -37,8 +37,14 @@ export default {
 	components: true,
 
 	buildModules: [
-		"@nuxtjs/style-resources"
+		"@nuxtjs/style-resources",
+		'@nuxtjs/google-fonts'
 	],
+	googleFonts: {
+		families: {
+			Lato: [300, 400, 500]
+		}
+	},
 
 	modules: [
 		"@nuxtjs/axios"
