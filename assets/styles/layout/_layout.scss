@@ -8,4 +8,5 @@
 
 .poke-container {
     @include make-container-min-widths();
+    margin: 0 auto;
 }
