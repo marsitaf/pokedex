@@ -7,9 +7,9 @@ export default {
         disabled: Boolean,
         variant: {
             type: String,
-            default: "primary",
-            validator: (value) => ["primary", "icon"].includes(value)
+            validator: (value) => ["primary"].includes(value)
         },
+        icon: Boolean,
         active: Boolean
     },
     render(createElement, context) {
@@ -21,7 +21,7 @@ export default {
             class: {
                 "poke-button": true,
                 "poke-button--primary": context.props.variant == "primary",
-                "poke-button--secondary": context.props.variant == "secondary",
+                "poke-button--rounded": context.props.icon,
                 "poke-button--disabled": Boolean(context.props.disabled),
                 "poke-button--active": context.props.active,
                 ...staticClass, 
@@ -43,15 +43,13 @@ export default {
 
 <style lang="scss">
     .poke-button {
-        --height: 40px;
+        --dimension: 40px;
         --ph: 20px;
         --pv: 11px;
         --fz: 18px;
         --br: 60px;
-        background: $gv-regular;
         border-radius: var(--br);
-        height: var(--height);
-        padding: var(--pv) var(--ph);
+        height: var(--dimension);
         font-size: 18px;
         font-weight: 500;
         outline: none;
@@ -64,18 +62,33 @@ export default {
         min-width: max-content;
         color: #FFFFFF;
         i {
-            margin-right: 10px;
-        }
-        &:active {
-            background-color: darken($gv-regular, 10%);
-            transform: scale(0.98);
+            color: inherit;
         }
     }
 
-    .poke-button--active {
-        background-color: $pc-regular;
-        &:active {
-            background-color: $pc-dark;
+    .poke-button--primary {
+        padding: var(--pv) var(--ph);
+        background: $gv-regular;
+        i {
+            margin-right: 10px;
+        }
+        &:active(:not(&--active)) {
+            background-color: darken($gv-regular, 10%);
+            transform: scale(0.98);
+        }
+        &.poke-button--active {
+            background-color: $pc-regular;
+            &:active {
+                background-color: $pc-dark;
+            }
         }
     }
+
+    .poke-button--rounded {
+        --br: 100%;
+        width: var(--dimension);
+    }
+
+
+    
 </style>
