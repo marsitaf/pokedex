@@ -32,7 +32,9 @@ export default {
 		]
     },
 
-	plugins: [],
+	plugins: [
+		{ src: "@/plugins/vuejs-modal" }
+	],
 
 	components: true,
 
