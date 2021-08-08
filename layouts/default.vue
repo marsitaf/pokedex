@@ -4,7 +4,7 @@
 </template>
 
 <style lang="scss">
-    #app {
+    #poke-app {
         background-color: $gv-lighter;
     }
 </style>
