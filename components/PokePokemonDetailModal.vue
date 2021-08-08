@@ -1,0 +1,89 @@
+<template lang="pug">
+    modal(
+        name="pokemonDetailModal", 
+        :width="570", 
+        height="auto",
+        :adaptive="true",
+        classes="pokemon-detail-modal"
+    )
+        poke-button.close-button(icon, @click="close") 
+            i.pokeicon-close-rounded
+
+        div.pokemon-detail-modal__header
+            img(v-if="detail.image", :src="detail.image", :alt="detail.name")
+        div.pokemon-detail-modal__body
+            ul.body__description
+                li 
+                    p #[strong Name: ] {{ detail.name }}
+                li
+                    p #[strong Weight: ] {{ detail.weight }}
+                li
+                    p #[strong Height: ] {{ detail.height }}
+                li
+                    p #[strong Types: ] {{ detail.types }}
+            div.pokemon-detail-modal__actions
+                poke-button(variant="primary", active) Share to my friends
+                poke-button.status-button(icon, :class="{ 'active': detail.status }") 
+                    i.pokeicon-star
+    </template>
+ç
+
+<script>
+export default {
+    name: "PokePokemonDetailModal",
+    data: () =>  ({
+        detail: {}
+    }),
+    methods: {
+        open(data) {
+            this.detail = data ?? {};
+            this.$modal.show('pokemonDetailModal');
+        },
+        close() {
+            this.$modal.hide('pokemonDetailModal');
+        }
+    }
+}
+</script>
+
+<style lang="scss">
+    .pokemon-detail-modal {
+        max-width: calc(100% - 30px);
+        margin: 0 15px;
+        border-radius: 5px;
+        .close-button {
+            --dimension: 26px;
+            position: absolute;
+            flex: none;
+            top: 10px;
+            right: 10px;
+        }
+    }
+    .pokemon-detail-modal__header {
+        height: 220px;
+        background-image: url("@/assets/images/pokemon-habitad-large.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        img {
+            max-height: 180px;
+        }
+    }
+    .pokemon-detail-modal__body {
+        padding: 15px 30px 20px;
+        .body__description {
+            li {
+                border-bottom: 1px solid $gv-light;
+                padding-top: 11px;
+                padding-bottom: 11px;
+                font-size: 18px;
+            }
+        }
+    }
+    .pokemon-detail-modal__actions {
+        padding-top: 20px;
+    }
+</style>

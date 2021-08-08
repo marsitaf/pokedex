@@ -1,7 +1,8 @@
 <template lang="pug">
-    .poke-card
+    .poke-card(@click="select")
         p.poke-card__description #[slot]
-        div.poke-card__status(:class="{ 'active': status }") #[i.pokeicon-star]
+        poke-button.status-button(icon, :class="{ 'active': status }") 
+            i.pokeicon-star
 </template>
 
 <script>
@@ -9,6 +10,11 @@ export default {
     name: "poke-card",
     props: {
         status: Boolean
+    },
+    methods: {
+        select() {
+            this.$emit("select")
+        }
     }
 }
 </script>
@@ -32,27 +38,10 @@ export default {
         transition: all 0.25s ease-in-out;
         &:hover {
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04), 0px 2px 6px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+            transform: scale(1.01);
         }
     }
     .poke-card__description {
         font-size: 22px;
-    }
-    .poke-card__status {
-        width: 44px;
-        height: 44px;
-        background-color: $gv-lighter;
-        border-radius: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        i {
-            color: $gv-regular;
-            font-size: 25px;
-        }
-        &.active {
-            i {
-                color: $ac-yellow;
-            }
-        }
     }
 </style>
