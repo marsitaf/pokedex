@@ -4,6 +4,7 @@ export default {
 	globals: {
 		id: "poke-app"
 	},
+	components: true,
 	head: {
 		title: "pokedex",
 		htmlAttrs: {

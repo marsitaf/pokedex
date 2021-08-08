@@ -64,6 +64,9 @@ export default {
         i {
             color: inherit;
         }
+        &:active {
+            transform: scale(0.98);
+        }
     }
 
     .poke-button--primary {
@@ -74,7 +77,6 @@ export default {
         }
         &:active(:not(&--active)) {
             background-color: darken($gv-regular, 10%);
-            transform: scale(0.98);
         }
         &.poke-button--active {
             background-color: $pc-regular;

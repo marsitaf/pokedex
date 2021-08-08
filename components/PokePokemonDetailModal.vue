@@ -50,7 +50,7 @@ export default {
     .pokemon-detail-modal {
         max-width: calc(100% - 30px);
         margin: 0 15px;
-        border-radius: 5px;
+        border-radius: $border-radius-default;
         .close-button {
             --dimension: 26px;
             position: absolute;
@@ -85,5 +85,8 @@ export default {
     }
     .pokemon-detail-modal__actions {
         padding-top: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 </style>

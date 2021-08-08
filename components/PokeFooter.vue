@@ -12,7 +12,7 @@ export default {
     footer {
         --btn-width: 150px;
         background-color: #FFFFFF;
-        box-shadow: 0px -5px 4px rgba(0, 0, 0, 0.05);
+        box-shadow: $elevation-2;
         padding: 18px 30px;
         position: fixed;
         bottom: 0;
