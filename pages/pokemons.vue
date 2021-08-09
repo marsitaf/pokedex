@@ -26,28 +26,48 @@
 
 <script>
 
+import { mapState } from "vuex"
 export default {
+    async fetch({ store }) {
+        await store.dispatch("pokemon/getList");
+    },
     data: () => ({
         test: null,
-        pokemonsList: new Array(10).fill({
-            name: "Squirtle",
-            weight: 20,
-            height: 18,
-            types: "Normal, Water",
-            status: true,
-            image: require("@/assets/images/squirtle.png")
-        }),
         dialogVisible: false,
         searchTerm: null
     }),
     computed: {
+        ...mapState({
+            pokemonsList: state => state.pokemon.list
+        }),
         resultExist() {
-            return false;
+            return Boolean(this.pokemonsList?.length);
         },
     },
     methods: {
-        showPokedexDetail(item) {
-            this.$refs.detailModal.open(item);
+        async showPokedexDetail(item) {
+            try {
+                const response = await this.$store.dispatch("pokemon/getDetail", item.name);
+                const detail = this.transformPokemonDetail(response, item.status)
+                this.$refs.detailModal.open(detail);
+            } catch(error) {
+                alert("Ha ocurrido un error. Inténtalo de nuevo")
+            }
+        },
+        transformPokemonDetail(data, status) {
+            return {
+                name: data?.name ?? "", 
+                weight: data?.weight ?? "", 
+                height: data?.height ?? "", 
+                types: this.transformTypesToString(data?.types), 
+                status
+            }
+        },
+        transformTypesToString(types) {
+            if(!types || !Array.isArray(types)) return ""
+            let typesFilter = types.map(item => item.type?.name)
+
+            return typesFilter.join(", ")
         },
         backHome() {
             this.$router.push("/")
