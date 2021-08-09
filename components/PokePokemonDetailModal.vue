@@ -10,7 +10,8 @@
             i.pokeicon-close-rounded
 
         div.pokemon-detail-modal__header
-            img(v-if="detail.image", :src="detail.image", :alt="detail.name")
+            //- img(v-if="detail.image", :src="detail.image", :alt="detail.name")
+            img(src="@/assets/images/squirtle.png", :alt="detail.name")
         div.pokemon-detail-modal__body
             ul.body__description
                 li 
@@ -22,13 +23,22 @@
                 li
                     p #[strong Types: ] {{ detail.types }}
             div.pokemon-detail-modal__actions
-                poke-button(variant="primary", active) Share to my friends
-                poke-button.status-button(icon, :class="{ 'active': detail.status }") 
-                    i.pokeicon-star
+                poke-button(
+                    variant="primary", 
+                    active, 
+                    @click="copyToClipboard"
+                ) Share to my friends
+                poke-button.status-button(
+                    icon, 
+                    :class="{ 'active': detail.status }", 
+                    @click="saveAsFavorite"
+                ) #[i.pokeicon-star]
     </template>
 ç
 
 <script>
+import { copyObjectToClipboard, cloneObject } from "@/utilities"
+
 export default {
     name: "PokePokemonDetailModal",
     data: () =>  ({
@@ -36,11 +46,18 @@ export default {
     }),
     methods: {
         open(data) {
-            this.detail = data ?? {};
+            this.detail = cloneObject(data);
             this.$modal.show('pokemonDetailModal');
         },
         close() {
             this.$modal.hide('pokemonDetailModal');
+        },
+        copyToClipboard() {
+            copyObjectToClipboard(this.detail)
+        },
+        saveAsFavorite() {
+            this.detail.status = !this.detail.status; 
+            this.$store.commit("pokemon/UPDATE_STATUS", this.detail)
         }
     }
 }
@@ -80,6 +97,9 @@ export default {
                 padding-top: 11px;
                 padding-bottom: 11px;
                 font-size: 18px;
+            }
+            p {
+                text-transform: capitalize;
             }
         }
     }
