@@ -4,17 +4,25 @@ import { cloneObject } from "@/utilities"
 export const state = () => ({
     list: [],
     limit: 20,
-    offset: 60
+    offset: 20,
+    totalItems: 0
 })
 
 export const mutations = {
     UPDATE_LIST(ctxState, data) {
-        const { results } = data || {}
-        ctxState.list = (results ?? []).map(item => ({
+        const { results, count } = data || {}
+        const isEmpty = !Boolean(ctxState.list.length)
+        const mapData = (results ?? []).map(item => ({
             name: item.name,
             status: false,
             url: item.url
         })) ;
+
+        ctxState.totalItems = count
+        
+        if(isEmpty) {
+            ctxState.list = mapData 
+        } else ctxState.list.push(...mapData)
     },
     UPDATE_DETAIL(ctxState, data) {
         const {  name, weight, height, types } = data || {}

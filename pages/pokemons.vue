@@ -4,12 +4,16 @@
             poke-search.pokemons-collection__search(@change="updateSearchTerm")
             
             .pokemons-collection__list(v-if="resultExist")
-                poke-card(
-                    v-for="(pokemon, index) in pokemonsFilterlist"
-                    :key="index"
-                    :status="pokemon.status",
-                    @select="showPokedexDetail(pokemon)"
-                ) {{ pokemon.name }}
+                .div
+                    poke-card(
+                        v-if="pokemon",
+                        v-for="(pokemon, index) in pokemonsFilterlist"
+                        :key="pokemon.id",
+                        :status="pokemon.status",
+                        :ref="`pokemon-${pokemon.name}`"
+                        @select="showPokedexDetail(pokemon)",
+                        @mounted="incrementMountedItemCounter(pokemon)"
+                    ) {{ pokemon.name }}
 
             poke-placeholder(v-if="!resultExist", @clicked="backHome")
                 template(#title) Uh-oh!
@@ -34,6 +38,7 @@
 <script>
 
 import { mapState } from "vuex"
+import { intersectionCallback } from "@/utilities"
 export default {
     async fetch({ store }) {
         await store.dispatch("pokemon/getList");
@@ -43,11 +48,16 @@ export default {
         dialogVisible: false,
         searchTerm: null,
         showFavoritesList: false,
-        showAllList: true
+        showAllList: true,
+        lastListItem: null,
+        observer: null,
+        mountedItemsCounter: 0
     }),
     computed: {
         ...mapState({
-            pokemonsList: state => state.pokemon.list
+            pokemonsList: state => state.pokemon.list,
+            paginationOffset: state => state.pokemon.offset,
+            totalItems: state => state.pokemon.totalItems
         }),
         resultExist() {
             return Boolean(this.pokemonsFilterlist?.length);
@@ -61,6 +71,27 @@ export default {
             return this.showFavoritesList ?
                 this.filterBySearchList.filter(item => item.status)
                 : this.filterBySearchList
+        },
+        intersectionOptions() {
+            return Object.freeze({
+                root: document.querySelector(".pokemons-collection__list"),
+                rootMargin: "0px",
+                threshold: 1.0
+            });
+        },
+        isAllItemsRequested() {
+            return this.paginationOffset >= this.totalItems
+        },
+        lastItemWasMounted() {
+            return this.mountedItemsCounter === this.paginationOffset
+        }
+    },
+    watch: {
+        pokemonsList() {
+            console.log("pokemonsList")
+        },
+        lastListItem() {
+            console.log(this.lastListItem)
         }
     },
     methods: {
@@ -97,7 +128,32 @@ export default {
         },
         updateSearchTerm(term) {
             this.searchTerm = term
-        }
+        },
+        incrementMountedItemCounter(item) {
+            this.mountedItemsCounter++
+            if(this.lastItemWasMounted) {
+                const itemRef = this.$refs?.[`pokemon-${item.name}`]
+                this.lastListItem = itemRef[0].$el
+                this.resetObserver()
+            }
+        },
+        resetObserver() {
+            this.observer?.disconnect();
+            this.setObserver(this.lastListItem, this.isAllItemsRequested, this.updateData)
+        },
+        setObserver(target, disconect, updatedataCallback) {
+            if(!this.observer) {
+                this.observer = new IntersectionObserver(
+                    (entries) => intersectionCallback(entries, disconect, updatedataCallback), 
+                    this.intersectionOptions
+                );
+            }
+            this.observer.observe(target);
+        },
+        async updateData() {
+            this.$store.commit("pokemon/INCREMENT_PAGINATION_OFFSET");
+            await this.$store.dispatch("pokemon/getList");
+        },
     }
 }
 </script>
@@ -117,7 +173,7 @@ export default {
     }
     .pokemons-collection__list {
         overflow: auto;
-        > div {
+        .poke-card {
             margin-left: auto;
             margin-right: auto;
             margin-bottom: 10px;

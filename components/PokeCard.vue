@@ -15,6 +15,11 @@ export default {
         select() {
             this.$emit("select")
         }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.$emit("mounted")
+        })
     }
 }
 </script>
