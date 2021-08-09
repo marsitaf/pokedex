@@ -24,7 +24,6 @@ figure,
 p,
 pre {
     margin: 0;
-    color: $gv-dark;
 }
 
 button {
@@ -52,6 +51,7 @@ ul {
 html {
     font-family: 'Lato', sans-serif;
     line-height: 1.5; /* 2 */
+    color: $gv-dark;
 }
 
 

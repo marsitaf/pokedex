@@ -66,10 +66,10 @@ export default {
             row-gap: 40px;
         }
     }
-    .pokemons-collection__search,
-    .pokemons-collection__list > div {
-        max-width: 570px;
-    }
+    // .pokemons-collection__search,
+    // .pokemons-collection__list > div {
+    //     max-width: 570px;
+    // }
     .pokemons-collection__search {
         margin: 0 auto;
     }
