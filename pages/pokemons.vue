@@ -2,18 +2,13 @@
     section.pokemons-collection
         .poke-container
             poke-search.pokemons-collection__search(@change="updateSearchTerm")
-            
-            .pokemons-collection__list(v-if="resultExist")
-                .div
-                    poke-card(
-                        v-if="pokemon",
-                        v-for="(pokemon, index) in pokemonsFilterlist"
-                        :key="pokemon.id",
-                        :status="pokemon.status",
-                        :ref="`pokemon-${pokemon.name}`"
-                        @select="showPokedexDetail(pokemon)",
-                        @mounted="incrementMountedItemCounter(pokemon)"
-                    ) {{ pokemon.name }}
+
+            poke-collection-list(
+                v-if="resultExist", 
+                :list="pokemonsFilterlist",
+                :update="updateData",
+                @showDetail="showPokedexDetail"
+            )
 
             poke-placeholder(v-if="!resultExist", @clicked="backHome")
                 template(#title) Uh-oh!
@@ -39,6 +34,7 @@
 
 import { mapState } from "vuex"
 import { intersectionCallback } from "@/utilities"
+
 export default {
     async fetch({ store }) {
         await store.dispatch("pokemon/getList");
@@ -86,14 +82,6 @@ export default {
             return this.mountedItemsCounter === this.paginationOffset
         }
     },
-    watch: {
-        pokemonsList() {
-            console.log("pokemonsList")
-        },
-        lastListItem() {
-            console.log(this.lastListItem)
-        }
-    },
     methods: {
         async showPokedexDetail(item) {
             try {
@@ -128,27 +116,6 @@ export default {
         },
         updateSearchTerm(term) {
             this.searchTerm = term
-        },
-        incrementMountedItemCounter(item) {
-            this.mountedItemsCounter++
-            if(this.lastItemWasMounted) {
-                const itemRef = this.$refs?.[`pokemon-${item.name}`]
-                this.lastListItem = itemRef[0].$el
-                this.resetObserver()
-            }
-        },
-        resetObserver() {
-            this.observer?.disconnect();
-            this.setObserver(this.lastListItem, this.isAllItemsRequested, this.updateData)
-        },
-        setObserver(target, disconect, updatedataCallback) {
-            if(!this.observer) {
-                this.observer = new IntersectionObserver(
-                    (entries) => intersectionCallback(entries, disconect, updatedataCallback), 
-                    this.intersectionOptions
-                );
-            }
-            this.observer.observe(target);
         },
         async updateData() {
             this.$store.commit("pokemon/INCREMENT_PAGINATION_OFFSET");

@@ -2,7 +2,6 @@
     .pokemons-collection__list
         div
             poke-card(
-                v-if="pokemon",
                 v-for="(pokemon, index) in list"
                 :key="pokemon.id",
                 :status="pokemon.status",
@@ -64,7 +63,7 @@ export default {
         },
         resetObserver() {
             this.observer?.disconnect();
-            this.setObserver(this.lastListItem, this.isAllItemsRequested, this.update())
+            this.setObserver(this.lastListItem, this.isAllItemsRequested, this.update)
         },
         setObserver(target, disconect, updatedataCallback) {
             if(!this.observer) {
