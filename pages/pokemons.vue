@@ -1,25 +1,32 @@
 <template lang="pug">
     section.pokemons-collection
         .poke-container
-            poke-search.pokemons-collection__search(:term="searchTerm")
+            poke-search.pokemons-collection__search(@change="updateSearchTerm")
+            
             .pokemons-collection__list(v-if="resultExist")
                 poke-card(
-                    v-for="(pokemon, index) in pokemonsList"
+                    v-for="(pokemon, index) in pokemonsFilterlist"
                     :key="index"
                     :status="pokemon.status",
                     @select="showPokedexDetail(pokemon)"
                 ) {{ pokemon.name }}
+
             poke-placeholder(v-if="!resultExist", @clicked="backHome")
                 template(#title) Uh-oh!
                 template(#message) You look lost on your journey!
                 template(#button) Go back home
+
         poke-footer
-            poke-button(variant="primary", :active="true")
-                i.pokeicon-list 
-                | All
-            poke-button(variant="primary") 
-                i.pokeicon-star
-                |Favorites
+            poke-button(
+                variant="primary", 
+                :active="showAllList",
+                @click="handlerClickFilterButton"
+            ) #[i.pokeicon-list] All
+            poke-button(
+                variant="primary",
+                :active="showFavoritesList"
+                @click="handlerClickFilterButton"
+            ) #[i.pokeicon-star] Favorites
 
         poke-pokemon-detail-modal(ref="detailModal")
 </template>
@@ -34,15 +41,27 @@ export default {
     data: () => ({
         test: null,
         dialogVisible: false,
-        searchTerm: null
+        searchTerm: null,
+        showFavoritesList: false,
+        showAllList: true
     }),
     computed: {
         ...mapState({
             pokemonsList: state => state.pokemon.list
         }),
         resultExist() {
-            return Boolean(this.pokemonsList?.length);
+            return Boolean(this.pokemonsFilterlist?.length);
         },
+        filterBySearchList() {
+            return this.searchTerm ? 
+                this.pokemonsList.filter(item => item.name.includes(this.searchTerm))
+                : this.pokemonsList
+        },  
+        pokemonsFilterlist() {
+            return this.showFavoritesList ?
+                this.filterBySearchList.filter(item => item.status)
+                : this.filterBySearchList
+        }
     },
     methods: {
         async showPokedexDetail(item) {
@@ -71,6 +90,13 @@ export default {
         },
         backHome() {
             this.$router.push("/")
+        },
+        handlerClickFilterButton() {
+            this.showFavoritesList = !this.showFavoritesList
+            this.showAllList = !this.showAllList
+        },
+        updateSearchTerm(term) {
+            this.searchTerm = term
         }
     }
 }
@@ -86,10 +112,6 @@ export default {
             row-gap: 40px;
         }
     }
-    // .pokemons-collection__search,
-    // .pokemons-collection__list > div {
-    //     max-width: 570px;
-    // }
     .pokemons-collection__search {
         margin: 0 auto;
     }

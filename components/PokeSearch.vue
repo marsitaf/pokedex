@@ -1,8 +1,22 @@
 <template lang="pug">
     div
         i.pokeicon-search
-        input(type="text", placeholder="Search", autocomplete="off")
+        input(
+            type="text", 
+            placeholder="Search", 
+            autocomplete="off", 
+            v-model="search",
+            @keyup="$emit('change', search)"
+        )
 </template>
+
+<script>
+export default {
+    data: () => ({
+        search: null
+    })
+}
+</script>
 
 <style lang="scss", scoped>
     div {

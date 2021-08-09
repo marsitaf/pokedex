@@ -27,6 +27,7 @@
                     variant="primary", 
                     active, 
                     @click="copyToClipboard"
+                    v-tooltip.top-start="tooltipOptions"
                 ) Share to my friends
                 poke-button.status-button(
                     icon, 
@@ -42,8 +43,20 @@ import { copyObjectToClipboard, cloneObject } from "@/utilities"
 export default {
     name: "PokePokemonDetailModal",
     data: () =>  ({
-        detail: {}
+        detail: {},
+        isOpen: true
     }),
+    computed: {
+        tooltipOptions() {
+            return {
+                content: 'Tooltip content here',
+                show: true,
+                trigger: 'manual',
+                autoHide: true,
+                container: ".pokemon-detail-modal"
+            }
+        }
+    },
     methods: {
         open(data) {
             this.detail = cloneObject(data);
@@ -57,6 +70,7 @@ export default {
         },
         saveAsFavorite() {
             this.detail.status = !this.detail.status; 
+            this.isOpen = true;
             this.$store.commit("pokemon/UPDATE_STATUS", this.detail)
         }
     }
