@@ -11,14 +11,6 @@
 					poke-button(variant="primary", active) Get started
 </template>
 
-//
-<script>
-export default {
-	
-};
-//
-</script>
-
 <style lang="scss">
 	.welcome-view {
 		display: flex;

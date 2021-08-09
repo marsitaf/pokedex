@@ -38,6 +38,7 @@ import { intersectionCallback } from "@/utilities"
 export default {
     async fetch({ store }) {
         await store.dispatch("pokemon/getList");
+        store.commit("SET_LOADING_STATE", false)
     },
     data: () => ({
         test: null,
@@ -84,6 +85,7 @@ export default {
     },
     methods: {
         async showPokedexDetail(item) {
+            this.$setLoadingState(true)
             try {
                 const response = await this.$store.dispatch("pokemon/getDetail", item.name);
                 const detail = this.transformPokemonDetail(response, item.status)
@@ -91,6 +93,7 @@ export default {
             } catch(error) {
                 alert("Ha ocurrido un error. Inténtalo de nuevo")
             }
+            this.$setLoadingState(false)
         },
         transformPokemonDetail(data, status) {
             return {
@@ -120,6 +123,7 @@ export default {
         async updateData() {
             this.$store.commit("pokemon/INCREMENT_PAGINATION_OFFSET");
             await this.$store.dispatch("pokemon/getList");
+            this.$setLoadingState(false)
         },
     }
 }

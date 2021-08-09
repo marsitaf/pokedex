@@ -12,6 +12,7 @@
 
 <script>
 export default {
+    name: "poke-search",
     data: () => ({
         search: null
     })

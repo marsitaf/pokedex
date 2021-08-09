@@ -35,7 +35,9 @@ export default {
 
 	plugins: [
 		{ src: "@/plugins/vuejs-modal" },
-		{ src: "@/plugins/vtooltip" }
+		{ src: "@/plugins/vtooltip" },
+		{ src: "@/plugins/injects" },
+		{ src: "@/plugins/axios" }
 	],
 
 	components: true,
