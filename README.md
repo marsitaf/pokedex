@@ -11,18 +11,24 @@ Nuxt.js takes care of
 - Scss
 
 ```bash
-## Build Setup
+##Instructions
 
-# install dependencies
+# Install dependencies
 $ npm install
 
-# serve with hot reload at localhost:3000
+# Create a .env file 
+$ touch .env 
+
+# Add API_POKEHABITAD_SERVICE environment variable in .env file
+API_POKEHABITAD_SERVICE="https://pokeapi.co/api/v2/pokemon"
+
+# Serve with hot reload at localhost:3000
 $ npm run dev
 
-# build for production and launch server
+# Build for production and launch server
 $ npm run build
 $ npm run start
 
-# generate static project
+# Generate static project
 $ npm run generate
 ```
