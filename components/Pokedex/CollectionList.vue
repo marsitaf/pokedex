@@ -64,7 +64,7 @@ export default {
             }
         },
         resetObserver() {
-            this.observer?.disconnect();
+            this.disconectObserver()
             this.setObserver(this.lastListItem, this.isAllItemsRequested, this.update)
         },
         setObserver(target, disconect, updatedataCallback) {
@@ -75,7 +75,13 @@ export default {
                 );
             }
             this.observer.observe(target);
+        },
+        disconectObserver() {
+            this.observer?.disconnect()
         }
+    },
+    destroyed() {
+        this.disconectObserver()
     }
 }
 </script>

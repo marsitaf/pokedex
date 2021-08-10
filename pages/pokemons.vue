@@ -4,6 +4,7 @@
             poke-search.pokemons-collection__search(@change="updateSearchTerm")
 
             pokedex-collection-list(
+                ref="collectionList"
                 v-if="resultExist", 
                 :list="pokemonsFilterlist",
                 :update="updateData",
@@ -122,6 +123,9 @@ export default {
             await this.$store.dispatch("pokemon/getList");
             this.$setLoadingState(false)
         },
+    },
+    destroyed() {
+        this.$store.commit("pokemon/RESET_DATA")
     }
 }
 </script>

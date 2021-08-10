@@ -45,6 +45,11 @@ export const mutations = {
     },
     UPDATE_PAGINATION_LIMIT(ctxState, data) {
         ctxState.offset = data
+    },
+    RESET_DATA(ctxState) {
+        ctxState.list = []
+        ctxState.offset = 20
+        ctxState.totalItems = 0
     }
 }
 
