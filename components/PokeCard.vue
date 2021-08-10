@@ -1,13 +1,16 @@
 <template lang="pug">
     .poke-card(@click="select")
-        p.poke-card__description #[slot]
+        p.poke-card__description 
+            slot
         poke-button.status-button(icon, :class="{ 'active': status }") 
             i.pokeicon-star
 </template>
 
 <script>
+import PokeButton from "@/components/PokeButton"
 export default {
     name: "poke-card",
+    components: { PokeButton },
     props: {
         status: Boolean
     },

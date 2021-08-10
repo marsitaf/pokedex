@@ -12,7 +12,7 @@ export const state = () => ({
 export const mutations = {
     UPDATE_LIST(ctxState, data) {
         const { results, count } = data || {}
-        const isEmpty = !Boolean(ctxState.list.length)
+        const isEmpty = !Boolean(ctxState.list?.length)
         const mapData = (results ?? []).map(item => ({
             name: item.name,
             status: false,
@@ -55,7 +55,6 @@ export const actions = {
             ctx.commit("UPDATE_LIST", response)
         } catch(error) {
             ctx.commit("UPDATE_LIST", [])
-            console.error(error);
         }
     },
     async getDetail(ctx, name) {

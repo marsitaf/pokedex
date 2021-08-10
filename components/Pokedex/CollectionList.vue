@@ -13,6 +13,8 @@
 
 <script>
 import { mapState } from "vuex"
+import { intersectionCallback } from "@/utilities"
+
 export default {
     name: "poke-collection-list",
     props: {
@@ -68,24 +70,12 @@ export default {
         setObserver(target, disconect, updatedataCallback) {
             if(!this.observer) {
                 this.observer = new IntersectionObserver(
-                    (entries) => this.handlerIntersectionCallback(entries, disconect, updatedataCallback), 
+                    (entries) => intersectionCallback(entries, disconect, updatedataCallback), 
                     this.intersectionOptions
                 );
             }
             this.observer.observe(target);
-        },
-        handlerIntersectionCallback(entries, disconect, callback) {
-            for (const entry of entries) {
-                const { isIntersecting, intersectionRatio } = entry;
-                if (isIntersecting  && intersectionRatio >= 0) {
-                    if(disconect) {
-                        this.observer = this.observer.disconnect();
-                        break
-                    } 
-                    callback()
-                }
-            };
-        },
+        }
     }
 }
 </script>

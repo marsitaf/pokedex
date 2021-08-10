@@ -10,22 +10,26 @@
                 @showDetail="showPokedexDetail"
             )
 
-            poke-placeholder(v-if="!resultExist", @clicked="backHome")
-                template(#title) Uh-oh!
-                template(#message) You look lost on your journey!
-                template(#button) Go back home
+            poke-placeholder(v-else, @clicked="backHome")
+                template(slot="title") Uh-oh!
+                template(slot="message") You look lost on your journey!
+                template(slot="button") Go back home
 
         poke-footer
             poke-button(
                 variant="primary", 
                 :active="showAllList",
                 @click="handlerClickFilterButton"
-            ) #[i.pokeicon-list] All
+            ) 
+                i.pokeicon-list 
+                | All
             poke-button(
                 variant="primary",
                 :active="showFavoritesList"
                 @click="handlerClickFilterButton"
-            ) #[i.pokeicon-star] Favorites
+            ) 
+                i.pokeicon-star 
+                | Favorites
 
         pokedex-pokemon-detail-modal(ref="detailModal")
 </template>
@@ -33,7 +37,6 @@
 <script>
 
 import { mapState } from "vuex"
-import { intersectionCallback } from "@/utilities"
 
 export default {
     async fetch({ store }) {
@@ -68,13 +71,6 @@ export default {
             return this.showFavoritesList ?
                 this.filterBySearchList.filter(item => item.status)
                 : this.filterBySearchList
-        },
-        intersectionOptions() {
-            return Object.freeze({
-                root: document.querySelector(".pokemons-collection__list"),
-                rootMargin: "0px",
-                threshold: 1.0
-            });
         },
         isAllItemsRequested() {
             return this.paginationOffset >= this.totalItems

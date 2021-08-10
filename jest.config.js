@@ -2,7 +2,7 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/$1',
     '^~/(.*)$': '<rootDir>/$1',
-    '^vue$': 'vue/dist/vue.common.js'
+    '^vue$': 'vue/dist/vue.common.js',
   },
   moduleFileExtensions: [
     'js',
@@ -18,5 +18,13 @@ module.exports = {
     '<rootDir>/components/**/*.vue',
     '<rootDir>/pages/**/*.vue'
   ],
-  testEnvironment: 'jsdom'
+  testEnvironment: 'jsdom',
+  globals: {
+    'vue-jest': {
+      pug: { 
+        "basedir": '<rootDir>',
+        doctype: 'html' 
+      }
+    }
+  }
 }
