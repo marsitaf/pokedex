@@ -100,6 +100,7 @@ export default {
                 name: data?.name ?? "", 
                 weight: data?.weight ?? "", 
                 height: data?.height ?? "", 
+                image: data?.sprites?.other.dream_world.front_default ?? "", 
                 types: this.transformTypesToString(data?.types), 
                 status
             }

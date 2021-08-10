@@ -5,7 +5,8 @@ export const state = () => ({
     list: [],
     limit: 20,
     offset: 20,
-    totalItems: 0
+    totalItems: 0,
+    detail: {}
 })
 
 export const mutations = {
@@ -25,10 +26,11 @@ export const mutations = {
         } else ctxState.list.push(...mapData)
     },
     UPDATE_DETAIL(ctxState, data) {
-        const {  name, weight, height, types } = data || {}
+        debugger
+        const {  name, weight, height, types, sprites } = data || {}
         const { status } = ctxState.list.find(item => item.name == name) || {}
         ctxState.detail = {
-            name, weight, height, types, status
+            name, weight, height, types, status, image: sprites?.other.dream_world.front_default
         }
     },
     UPDATE_STATUS(ctxState, data) {

@@ -2,7 +2,6 @@
 	div.welcome-view 
 		div.poke-container
 			div.welcome__image-container
-				img(src="@/assets/images/red-circle.png", alt="Welcome")
 				img(src="@/assets/images/hello-pikachu.png", alt="Welcome")
 			div.welcome__description
 				h1 Welcome to Pokédex
@@ -27,17 +26,6 @@
 		width: 100%;
 		margin: 0 auto;
 		padding-top: 40px;
-		img:first-child {
-			left: -12px;
-			bottom: 1px;
-			position: relative;
-		}
-		img:last-child {
-			position: absolute;
-			z-index: 1;
-			max-width: 210px;
-			transform: scale(1.4);
-		}
 	}
 
 	.welcome__description{

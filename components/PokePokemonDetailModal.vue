@@ -10,8 +10,7 @@
             i.pokeicon-close-rounded
 
         div.pokemon-detail-modal__header
-            //- img(v-if="detail.image", :src="detail.image", :alt="detail.name")
-            img(src="@/assets/images/squirtle.png", :alt="detail.name")
+            img(v-if="detail.image", :src="detail.image", data-src="detail.image" :alt="detail.name", loading="eager")
         div.pokemon-detail-modal__body
             ul.body__description
                 li 
