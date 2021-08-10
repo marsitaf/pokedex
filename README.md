@@ -3,12 +3,13 @@
 Pokedex built with Vue Nuxt. This was built with Nuxt with universal (server side rendering) mode.
 Nuxt.js takes care of
 
-Tecnologies used:
+##Tecnologies used:
 Vue
 Nuxt
 Javascript
 Scss
 
+```bash
 ## Build Setup
 
 # install dependencies
@@ -23,3 +24,4 @@ $ npm run start
 
 # generate static project
 $ npm run generate
+```
