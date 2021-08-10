@@ -2,7 +2,8 @@
 	div.welcome-view 
 		div.poke-container
 			div.welcome__image-container
-				img(src="@/assets/images/hello-pikachu.png", alt="Welcome")
+				img(src="@/assets/images/red-circle.png", alt="Welcome")
+				img(src="@/assets/images/hello-pikachu-1.png", alt="Welcome")
 			div.welcome__description
 				h1 Welcome to Pokédex
 				p The digital encyclopedia created by Professor Oak is an invaluable tool to Trainers in the Pokémon world.
@@ -17,6 +18,11 @@
 		align-items: center;
 		justify-content: center;
 		min-height: 100vh;
+		.poke-button {
+			animation: bounce 0.5s;
+			animation-direction: alternate;
+			animation-iteration-count: infinite;
+		}
 	}
 	.welcome__image-container {
 		position: relative;
@@ -26,6 +32,19 @@
 		width: 100%;
 		margin: 0 auto;
 		padding-top: 40px;
+		img:first-child {
+			left: -12px;
+			bottom: 1px;
+			position: relative;
+		}
+		img:last-child {
+			position: absolute;
+			z-index: 1;
+			max-width: 210px;
+			transition: all .25s ease-in-out;
+			animation: scaleAparition 0.5s;
+			transform: scale(1.4);
+		}
 	}
 
 	.welcome__description{
