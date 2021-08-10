@@ -16,7 +16,7 @@ Nuxt.js takes care of
 # Install dependencies
 $ npm install
 
-# Create a .env file 
+# Create a .env file in root project 
 $ touch .env 
 
 # Add API_POKEHABITAD_SERVICE variable in .env file
