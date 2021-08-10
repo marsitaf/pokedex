@@ -3,7 +3,7 @@
         .poke-container
             poke-search.pokemons-collection__search(@change="updateSearchTerm")
 
-            poke-collection-list(
+            pokedex-collection-list(
                 v-if="resultExist", 
                 :list="pokemonsFilterlist",
                 :update="updateData",
@@ -27,7 +27,7 @@
                 @click="handlerClickFilterButton"
             ) #[i.pokeicon-star] Favorites
 
-        poke-pokemon-detail-modal(ref="detailModal")
+        pokedex-pokemon-detail-modal(ref="detailModal")
 </template>
 
 <script>
