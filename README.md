@@ -19,7 +19,7 @@ $ npm install
 # Create a .env file 
 $ touch .env 
 
-# Add API_POKEHABITAD_SERVICE environment variable in .env file
+# Add API_POKEHABITAD_SERVICE variable in .env file
 API_POKEHABITAD_SERVICE="https://pokeapi.co/api/v2/pokemon"
 
 # Serve with hot reload at localhost:3000
