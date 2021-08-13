@@ -1,6 +1,6 @@
 <template lang="pug">
     div 
-        slot(ref="item")
+        slot
 </template>
 
 <script>
@@ -31,7 +31,8 @@ export default {
             }
         },
         observe() {
-            const target = this.$slots.default?.slice(-1)?.[0]?.elm;
+            const collection = this.$children
+            const target = collection[collection.length - 1]?.$el
             if(target) this.intersectionInstance?.observe(target)
         },
         disconnect() {

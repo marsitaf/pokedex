@@ -38,14 +38,19 @@
 
 <script>
 import { copyObjectToClipboard, cloneObject } from "@/utilities"
+import { mapState } from "vuex"
+import PokeButton from "@/components/PokeButton"
 
 export default {
     name: "PokePokemonDetailModal",
+    components: { PokeButton },
     data: () =>  ({
-        detail: {},
-        isOpen: true
+        detail: {}
     }),
     computed: {
+        ...mapState({
+            isOpen: state => state.pokemon.showDetailModal
+        }),
         tooltipOptions() {
             return {
                 content: 'Tooltip content here',
@@ -56,20 +61,25 @@ export default {
             }
         }
     },
+    watch: {
+        isOpen(value) {
+            if(value) this.open()
+        }
+    },
     methods: {
-        open(data) {
-            this.detail = cloneObject(data);
+        open() {
+            this.detail = cloneObject(this.$store.state.pokemon.detail)
             this.$modal.show('pokemonDetailModal');
         },
         close() {
             this.$modal.hide('pokemonDetailModal');
+            this.$store.commit("pokemon/UPDATE_SHOW_DETAIL_MODAL", false)
         },
         copyToClipboard() {
             copyObjectToClipboard(this.detail)
         },
         saveAsFavorite() {
             this.detail.status = !this.detail.status; 
-            this.isOpen = true;
             this.$store.commit("pokemon/UPDATE_STATUS", this.detail)
         }
     }

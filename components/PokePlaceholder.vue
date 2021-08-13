@@ -11,8 +11,10 @@
 </template>
 
 <script>
+import PokeButton from "@/components/PokeButton"
 export default {
-    name: "poke-placeholder"
+    name: "poke-placeholder",
+    components: { PokeButton }
 }
 </script>
 

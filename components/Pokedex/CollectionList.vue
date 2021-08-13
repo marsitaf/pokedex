@@ -1,34 +1,34 @@
 <template lang="pug">
     .pokemons-collection__list
-        div
-            poke-card(
-                v-for="(pokemon, index) in list"
+        poke-infinite-scroll(
+            ref="infiniteScroll", 
+            :options="intersectionOptions",
+            @intersection="loadMore"
+        )
+            pokedex-card(
+                v-for="(pokemon, index) in list",
                 :key="pokemon.id",
-                :status="pokemon.status",
-                :ref="`pokemon-${pokemon.name}`"
-                @select="showPokedexDetail(pokemon)",
-                @mounted="incrementMountedItemCounter(pokemon)"
-            ) {{ pokemon.name }}
+                :data="pokemon",
+                ref="pokedexCard"
+            )
 </template>
 
 <script>
 import { mapState } from "vuex"
-import { intersectionCallback } from "@/utilities"
+import PokeInfiniteScroll from "@/components/PokeInfiniteScroll"
+import PokedexCard from "@/components/Pokedex/Card"
 
 export default {
     name: "poke-collection-list",
+    components: { PokeInfiniteScroll, PokedexCard },
     props: {
         list: {
             type: Array,
             default: () => { return [] }
-        },
-        update: {
-            type: Function
         }
     },
     data: () => ({
         lastListItem: null,
-        observer: null,
         mountedItemsCounter: 0
     }),
     computed: {
@@ -39,49 +39,29 @@ export default {
         }),
         intersectionOptions() {
             return Object.freeze({
-                root: document.querySelector(".pokemons-collection__list"),
+                root: null,
                 rootMargin: "0px",
                 threshold: 1.0
             });
-        },
-        isAllItemsRequested() {
-            return this.paginationOffset >= this.totalItems
-        },
-        lastItemWasMounted() {
-            return this.mountedItemsCounter === this.paginationOffset
         }
     },
     methods: {
-        showPokedexDetail(item) {
-            this.$emit("showDetail", item)
-        },
-        incrementMountedItemCounter(item) {
-            this.mountedItemsCounter++
-            if(this.lastItemWasMounted) {
-                const itemRef = this.$refs?.[`pokemon-${item.name}`]
-                this.lastListItem = itemRef[0].$el
-                this.resetObserver()
-            }
+        async loadMore() {
+            this.$store.commit("pokemon/INCREMENT_PAGINATION_OFFSET");
+            await this.$store.dispatch("pokemon/getList");
+            this.resetObserver(); 
+            this.$setLoadingState(false)
         },
         resetObserver() {
-            this.disconectObserver()
-            this.setObserver(this.lastListItem, this.isAllItemsRequested, this.update)
-        },
-        setObserver(target, disconect, updatedataCallback) {
-            if(!this.observer) {
-                this.observer = new IntersectionObserver(
-                    (entries) => intersectionCallback(entries, disconect, updatedataCallback), 
-                    this.intersectionOptions
-                );
-            }
-            this.observer.observe(target);
-        },
-        disconectObserver() {
-            this.observer?.disconnect()
+            this.$refs.infiniteScroll.disconnect();
+            if(this.isAllItemsWasRequested) return 
+            this.$refs.infiniteScroll.observe();
         }
     },
-    destroyed() {
-        this.disconectObserver()
+    mounted() { 
+        this.$nextTick(() => { 
+            this.$refs.infiniteScroll.observe()
+        })
     }
 }
 </script>
